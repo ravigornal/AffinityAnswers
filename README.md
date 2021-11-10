@@ -1,4 +1,5 @@
-# E-Commerce Take-Home Assignment
+# Shoping Cart Take-Home Assignment
+
 ## Task
 
 E-commerce Website
