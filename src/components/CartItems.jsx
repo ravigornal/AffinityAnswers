@@ -29,15 +29,18 @@ function CartItems(props)
                     <table className="table">
                         <thead>
                             <tr>
-                                <th style={{ width: "100px" }}>Sr.No</th>
+                                <th style={{ width: "100px" }}>#</th>
                                 <th className="ml-3">Vendor Name</th>
                                 <th className="ml-3">Product Name</th>
+                                <th className="ml-3"> Quantity</th>
                                 <th className="ml-3"> Price</th>
                             </tr>
                         </thead>
                         {props.cartItems.map((e, id) => {
                             total = total + Number(e.price)
-                            tax = (10/100)*total
+                            tax = (10/100)*total;
+                            var quantity = 0;
+
                             return (
                                 <tbody>
                                     <tr>

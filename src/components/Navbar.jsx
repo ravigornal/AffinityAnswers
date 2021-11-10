@@ -57,11 +57,6 @@ export class Navbar extends Component {
                 
                 {this.props.crumb &&
                     <div class="container-fluid  text-dark p-3">
-                        <div class="row">
-                            <div class="col">
-                            <p> Home / Clothing / Mens Clothing / All Men Clothing</p>
-                            </div>
-                        </div>
                     </div>
                 }
             </div>

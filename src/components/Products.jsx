@@ -77,107 +77,113 @@ function Products(props)
             <div className="d-flex justify-content-center mb-3">
                 <input type="text" class="form-control col-6" placeholder="Search" aria-label="Username" aria-describedby="basic-addon1" onChange={(e) => setSearchItem(e.target.value)} />
             </div>
+            <div className="d-flex">
+                <div>
+                    <h3 className="ml-5">Categories</h3>
+                    {
+                        filteredCategory &&
+                        filteredCategory.length > 0 &&
+                        <div className="d-flex flex-column">
+                            <div class="d-flex flex-column ml-5">
+                                {filteredCategory.map(item =>
+                                {
+                                    if (selectedCategory === item)
+                                    {
+                                        return (
+                                            <button 
+                                                type="button" 
+                                                class="btn btn-dark btn-sm ml-1 mr-1 mt-2" 
+                                                onClick={() => handleChangeCategory(item)}
+                                            >{item.toUpperCase()}</button>
+                                        )
+                                    }
+                                    else
+                                    {
+                                        return (
+                                            <button 
+                                                type="button" 
+                                                class="btn btn-outline-dark btn-sm ml-1 mr-1 mt-2" 
+                                                onClick={() => handleChangeCategory(item)}
+                                            >{item.toUpperCase()}</button>
+                                        )
+                                    }
+                                })}
+                            </div>
+                            <div class="d-flex justify-content-center mt-2" >
+                                <div class="dropdown">
+                                    <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                        Sort By
+                                    </button>
+                                    <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                                        <button 
+                                            class="dropdown-item" 
+                                            onClick={() => handleSort(sortOptions["low-high"])}
+                                            >
+                                            <b>$</b> - Low to High
+                                        </button>
 
-            {
-                filteredCategory &&
-                filteredCategory.length > 0 &&
-                <div className="d-flex row d-flex justify-content-between">
-                    <div class="d-flex ml-5">
-                        {filteredCategory.map(item =>
-                        {
-                            if (selectedCategory === item)
-                            {
-                                return (
-                                    <button 
-                                        type="button" 
-                                        class="btn btn-dark btn-sm ml-1 mr-1" 
-                                        onClick={() => handleChangeCategory(item)}
-                                    >{item.toUpperCase()}</button>
-                                )
-                            }
-                            else
-                            {
-                                return (
-                                    <button 
-                                        type="button" 
-                                        class="btn btn-outline-dark btn-sm ml-1 mr-1" 
-                                        onClick={() => handleChangeCategory(item)}
-                                    >{item.toUpperCase()}</button>
-                                )
-                            }
-                        })}
-                    </div>
-                    <div class="d-flex justify-content-end" style={{ marginRight: "90px" }}>
-                        <div class="dropdown">
-                            <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                Sort By
-                            </button>
-                            <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-                                <button 
-                                    class="dropdown-item" 
-                                    onClick={() => handleSort(sortOptions["low-high"])}
-                                    >
-                                    <b>$</b> - Low to High
-                                </button>
-
-                                <button 
-                                    class="dropdown-item" 
-                                    onClick={() => handleSort(sortOptions["high-low"])}
-                                    >
-                                    <b>$</b> - High to Low
-                                </button>
+                                        <button 
+                                            class="dropdown-item" 
+                                            onClick={() => handleSort(sortOptions["high-low"])}
+                                            >
+                                            <b>$</b> - High to Low
+                                        </button>
+                                    </div>
+                                </div>
                             </div>
                         </div>
-                    </div>
+                    }
                 </div>
-            }
-
-            <div class="container-fluid">
-                <div class="row m-5" >
-                    {
-                        filteredProductList &&
-                        filteredProductList.length > 0 &&
-                        filteredProductList.filter((data) =>
+                <div class="container-fluid">
+                    <div class="row m-5" >
                         {
-                            if (search == null)
-                                return data
-                            else if (data.vendor.toLowerCase().includes(search.toLowerCase()))
+                            filteredProductList &&
+                            filteredProductList.length > 0 &&
+                            filteredProductList.filter((data) =>
                             {
-                                return data
-                            }
-                        })
-                        .map(item =>
-                            {
-                                return (
-                                    <div key={item.id} className="dropdown" style={{ cursor: 'pointer' }} >
-                                        <div class="col-sm-4 col-4 col-md-4 col-lg-3 pb-3" >
-                                            <div class="card" style={{ width: "17rem" }}>
-                                                <img src={item.image_src[0]} alt={item.name} class="card-img-top" />
-                                                <div class="card-body">
-                                                    <h6 class="card-title"><b>{item.vendor}</b></h6>
-                                                    <p class="card-text text-mute"><small>{item.name}</small></p>
-                                                    <h6><span><strong>${item.price} </strong><s class="text-muted">${item.compare_at_price}</s> <b class="text-danger">(50% OFF)</b></span></h6>
-                                                    <button 
-                                                        type="button" 
-                                                        class="btn btn-outline-dark btn-sm ml-1 mr-1" 
-                                                        onClick={() => {handleClick(item.id) }}
-                                                        >Add To Cart
-                                                    </button>
-                                                    
-                                                    <button 
-                                                        type="button" 
-                                                        class="btn btn-outline-dark btn-sm ml-1 mr-1" 
-                                                        onClick={() => handleProductetails(item.id)}
-                                                        >View Details
-                                                    </button>
+                                if (search == null)
+                                    return data
+                                else if (data.vendor.toLowerCase().includes(search.toLowerCase()))
+                                {
+                                    return data
+                                }
+                            })
+                            .map(item =>
+                                {
+                                    return (
+                                        <div key={item.id} className="dropdown" style={{ cursor: 'pointer' }} >
+                                            <div class="col-sm-4 col-4 col-md-4 col-lg-3 pb-3" >
+                                                <div class="card" style={{ width: "17rem" }}>
+                                                    <img src={item.image_src[0]} alt={item.name} class="card-img-top" />
+                                                    <div class="card-body">
+                                                        <h6 class="card-title"><b>{item.vendor}</b></h6>
+                                                        <p class="card-text text-mute"><small>{item.name}</small></p>
+                                                        <h6><span><strong>${item.price} </strong><s class="text-muted">${item.compare_at_price}</s> <b class="text-danger">(50% OFF)</b></span></h6>
+                                                        <button 
+                                                            type="button" 
+                                                            class="btn btn-outline-dark btn-sm ml-1 mr-1" 
+                                                            onClick={() => {handleClick(item.id) }}
+                                                            >Add To Cart
+                                                        </button>
+                                                        
+                                                        <button 
+                                                            type="button" 
+                                                            class="btn btn-outline-dark btn-sm ml-1 mr-1" 
+                                                            onClick={() => handleProductetails(item.id)}
+                                                            >View Details
+                                                        </button>
+                                                    </div>
                                                 </div>
                                             </div>
                                         </div>
-                                    </div>
-                                )
-                            }
-                        )
-                    }
+                                    )
+                                }
+                            )
+                        }
+                    </div>
+                
+                
+                
                 </div>
             </div>
         </div >
@@ -197,13 +203,6 @@ const mapDispatchToProps = (dispatch) =>
 {
     return {
         addToCart: (id) => { dispatch(addToCart(id)) }
-    }
-}
-
-const StateToProps = (store) =>
-{
-    return {
-        
     }
 }
 
